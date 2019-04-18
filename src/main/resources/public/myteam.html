@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>MyTeam</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="./layui/css/layui.css">
+    <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
+</head>
+<body>
+
+<table class="layui-hide" id="myteam" lay-filter="test"></table>
+
+<script type="text/html" id="toolbarDemo">
+    <div class="layui-btn-container">
+        <button class="layui-btn layui-btn-sm" onclick="createTeam()">创建队伍</button>
+    </div>
+</script>
+
+<script type="text/html" id="barDemo">
+    {{# if(d.teamState != '2'){ }}
+    {{# if(d.vacancy == '1'&& d.studentOne == Cumrs.user.userName){ }}
+        <a class="layui-btn layui-btn-xs" lay-event="invitetea">邀请老师</a>
+    {{# } }}
+    {{# if(d.studentOne != Cumrs.user.userName){ }}
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="exit">退出队伍</a>
+    {{# }else{ }}
+        <a class="layui-btn layui-btn-xs" lay-event="invitestu">邀请学生</a>
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="dissolution">解散队伍</a>
+    {{# } }}
+    {{# } }}
+</script>
+
+
+<script src="./layui/layui.all.js"></script>
+<script src="./jquery/jquery-3.2.1.js"></script>
+<script src="./js/cumrs.js"></script>
+<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
+
+<script>
+    var teamData ;
+    var appType;
+    layui.use('table', function(){
+        Cumrs.getUser();
+        var user = Cumrs.user;
+        var table = layui.table;
+        table.render({
+            elem: '#myteam'
+            ,url:'/team/getMyTeam?stuid='+user.userName
+            ,toolbar: '#toolbarDemo'
+            ,title: '用户数据表'
+            ,cols: [[
+                {type: 'checkbox', fixed: 'left'}
+                ,{field:'teamName', title:'队伍名称', fixed: 'left'}
+                ,{field:'teacherName', title:'指导老师姓名'}
+                ,{field:'studentOneName', title:'学生一'}
+                ,{field:'studentTwoName', title:'学生二'}
+                ,{field:'studentThreeName', title:'学生三'}
+                ,{field:'education', title:'队伍类型'}
+                ,{field:'teamState', title:'队伍状态', templet: function(res){
+                        if(res.teamState == '0'){
+                            return '<em>'+ "已创建" +'</em>'
+                        }
+                        if (res.teamState == '1') {
+                            return '<em>' + "待报名" + '</em>'
+                        }
+                        if (res.teamState == '2') {
+                            return '<em>' + "报名成功" + '</em>'
+                        }
+                        if (res.teamState == '3') {
+                            return '<em>' + "报名失败" + '</em>'
+                        }
+                    }}
+                ,{field:'vacancy', title:'是否满员', templet: function(res){
+                        if(res.vacancy == '0'){
+                            return '<em>'+ "未满员" +'</em>'
+                        }else{
+                            return '<em>'+ "已满员" +'</em>'
+                        }
+                    }}
+                ,{fixed: 'right', title:'操作', toolbar: '#barDemo',minWidth:300}
+            ]]
+            ,parseData: function(res){ //res 即为原始返回的数据
+                return {
+                    "code": 0, //解析接口状态
+                    "msg": "", //解析提示文本
+                    "count": 180, //解析数据长度
+                    "data": res //解析数据列表
+                };
+            }
+            ,page: false
+        });
+
+      /*  //头工具栏事件
+        table.on('toolbar(test)', function(obj){
+            var checkStatus = table.checkStatus(obj.config.id);
+            switch(obj.event){
+                case 'getCheckData':
+                    var data = checkStatus.data;
+                    layer.alert(JSON.stringify(data));
+                    break;
+                case 'getCheckLength':
+                    var data = checkStatus.data;
+                    layer.msg('选中了：'+ data.length + ' 个');
+                    break;
+                case 'isAll':
+                    layer.msg(checkStatus.isAll ? '全选': '未全选');
+                    break;
+            };
+        });*/
+
+        //监听行工具事件
+        table.on('tool(test)', function(obj){
+            teamData = obj.data;
+            if(obj.event === 'invitestu'){
+                appType = '0';
+                selectStu();
+            } else if(obj.event === 'invitetea'){
+                appType = '1';
+                selectTea();
+            }else if(obj.event === 'exit'){
+                layer.confirm('真的要退出队伍么么', function(index){
+
+                    layer.close(index);
+                });
+            }else if(obj.event === 'dissolution'){
+                layer.confirm('真的要解散队伍么么', function(index){
+                    $.ajax({
+                        type: "POST",
+                        url: "team/dissolution",
+                        dataType: "json",
+                        data: JSON.stringify(teamData),
+                        contentType: "application/json",
+                        success:function(resp){
+                            layer.closeAll();
+                            layer.msg(resp, {icon: 6});
+                        },
+                        error:function(error){
+                            console.log(error)
+                            layer.msg('操作失败', {icon: 5});
+                        }
+                    });
+                    layer.close(index);
+                });
+            }
+        });
+    });
+    
+    function selectStu() {
+        layer.open({
+            type: 2,
+            area: ['50%', '50%'],
+            fixed: false, //不固定
+            maxmin: true,
+            content: 'selectstu.html',
+        });
+    }
+
+    function selectTea() {
+        layer.open({
+            type: 2,
+            area: ['50%', '50%'],
+            fixed: false, //不固定
+            maxmin: true,
+            content: 'selecttea.html',
+        });
+    }
+
+    function createTeam() {
+        layer.open({
+            type: 2,
+            area: ['700px', '450px'],
+            fixed: false, //不固定
+            maxmin: true,
+            content: 'createTeam.html'
+        });
+    }
+
+    function create(teamname) {
+        Cumrs.getUser()
+        var user = Cumrs.user;
+        var team = {};
+        team.teamName = teamname;
+        team.studentOne = user.userName;
+        $.ajax({
+            type: "POST",
+            url: "team/create",
+            dataType: "json",
+            data: JSON.stringify(team),
+            contentType: "application/json",
+            success:function(resp){
+                layer.closeAll();
+                layer.msg(resp, {icon: 6});
+            },
+            error:function(error){
+                console.log(error)
+                layer.msg('创建失败', {icon: 5});
+            }
+        });
+    }
+
+    function sub(data) {
+        var param ={
+            userName: teamData.studentOne,
+            teamName: teamData.teamName,
+            applyType: appType,
+            students: data
+        };
+        $.ajax({
+            type: "POST",
+            url: "apply/invite",
+            dataType: "json",
+            data: JSON.stringify(param),
+            contentType: "application/json",
+            success:function(resp){
+                layer.closeAll();
+                layer.msg(resp, {icon: 6});
+            },
+            error:function(error){
+                console.log(error)
+                layer.msg('操作失败', {icon: 5});
+            }
+        });
+    }
+</script>
+</body>
+</html>

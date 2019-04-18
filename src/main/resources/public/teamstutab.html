@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>TeamStudent</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="./layui/css/layui.css">
+    <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
+</head>
+<body>
+
+<table class="layui-hide" id="stu" lay-filter="stu"></table>
+
+<script type="text/html" id="toolbarDemo">
+    <!--<div class="layui-inline">-->
+        <!--<label class="layui-form-label">用户名</label>-->
+        <!--<div class="layui-input-inline" style="width: 150px;">-->
+            <!--<input id="username" type="text" name="" autocomplete="off" class="layui-input">-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<button class="layui-btn layui-btn-sm" onclick="search()">搜索</button>-->
+</script>
+
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+
+
+<script src="./layui/layui.all.js"></script>
+<script src="./jquery/jquery-3.2.1.js"></script>
+<script src="./js/cumrs.js"></script>
+<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
+
+<script>
+    var table = layui.table;
+    Cumrs.getUser();
+    var user = Cumrs.user;
+    var url = "/stu/getTeamStu";
+    layui.use('table', function () {
+        table.render({
+            elem: '#stu'
+            , url: url
+            , toolbar: '#toolbarDemo'
+            , title: '团队成员'
+            , height: 800
+            , cols: [[
+
+                 {field: 'name', title: '用户名', edit: 'text'}
+                , {field: 'stuid', title: '学号', edit: 'text'}
+                , {field: 'age', title: '年龄', edit: 'text'}
+                , {field: 'departments', title: '院系', edit: 'text'}
+                , {field: 'phone', title: '电话', edit: 'text'}
+                , {
+                    field: 'email', title: '邮箱', edit: 'text', templet: function (res) {
+                        return '<em>' + res.email + '</em>'
+                    }
+                }
+                , {field: 'speciality', title: '兴趣爱好', edit: 'text'}
+                , {field: 'remarks', title: '备注', edit: 'text'}
+            ]]
+            , parseData: function (res) { //res 即为原始返回的数据
+                return {
+                    "code": 0, //解析接口状态
+                    "msg": "", //解析提示文本
+                    "count": 180, //解析数据长度
+                    "data": res //解析数据列表
+                };
+            }
+            , page: false
+        });
+
+        // //头工具栏事件
+        // table.on('toolbar(stu)', function(obj){
+        //     var checkStatus = table.checkStatus(obj.config.id);
+        //     switch(obj.event){
+        //         case 'getCheckData':
+        //             var data = checkStatus.data;
+        //             layer.alert(JSON.stringify(data));
+        //             break;
+        //         case 'getCheckLength':
+        //             var data = checkStatus.data;
+        //             layer.msg('选中了：'+ data.length + ' 个');
+        //             break;
+        //         case 'isAll':
+        //             layer.msg(checkStatus.isAll ? '全选': '未全选');
+        //             break;
+        //     };
+        // });
+
+        //     //监听行工具事件
+        //     table.on('tool(stu)', function(obj){
+        //         var data = obj.data;
+        //         //console.log(obj)
+        //         if(obj.event === 'del'){
+        //             layer.confirm('真的删除行么', function(index){
+        //                 obj.del();
+        //                 layer.close(index);
+        //             });
+        //         } else if(obj.event === 'edit'){
+        //             layer.prompt({
+        //                 formType: 2
+        //                 ,value: data.email
+        //             }, function(value, index){
+        //                 obj.update({
+        //                     email: value
+        //                 });
+        //                 layer.close(index);
+        //             });
+        //         }
+        //     });
+    });
+
+
+    function search() {
+        var username = $('#username').val();
+        table.reload('stu', {
+            where: {
+                name: username
+            }
+            , page: 1
+        })
+    }
+</script>
+
+</body>
+</html>

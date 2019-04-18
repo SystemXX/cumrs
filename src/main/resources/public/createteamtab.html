@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>CreateTeam</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="./layui/css/layui.css">
+    <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
+</head>
+<body>
+
+<table class="layui-hide" id="teamtab" lay-filter="teamtab"></table>
+
+<script type="text/html" id="toolbarDemo">
+    <div class="layui-inline">
+        <label class="layui-form-label">用户名</label>
+        <div class="layui-input-inline" style="width: 150px;">
+            <input id="username" type="text" name="" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <button class="layui-btn layui-btn-sm" onclick="search()">搜索</button>
+
+</script>
+
+<!--<script type="text/html" id="barDemo">-->
+    <!--{{# if(d.vacancy == '1'){ }}-->
+        <!--<a class="layui-btn layui-btn-xs" lay-event="invitetea">邀请老师</a>-->
+    <!--{{# } }}-->
+    <!--{{# if(d.studentOne != Cumrs.user.userName){ }}-->
+        <!--<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="exit">退出队伍</a>-->
+    <!--{{# }else{ }}-->
+        <!--<a class="layui-btn layui-btn-xs" lay-event="invitestu">邀请学生</a>-->
+        <!--<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="dissolution">解散队伍</a>-->
+    <!--{{# } }}-->
+<!--</script>-->
+
+
+<script src="./layui/layui.all.js"></script>
+<script src="./jquery/jquery-3.2.1.js"></script>
+<script src="./js/cumrs.js"></script>
+<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
+
+<script>
+
+    layui.use('table', function() {
+        Cumrs.getUser();
+        var user = Cumrs.user;
+        var table = layui.table;
+        table.render({
+            elem: '#teamtab'
+            , url: '/team/getCreateTeam'
+            , toolbar: '#toolbarDemo'
+            , title: '用户数据表'
+            , cols: [[
+                {type: 'checkbox', fixed: 'left'}
+                , {field: 'teamName', title: '队伍名称', fixed: 'left'}
+                , {field: 'teacherName', title: '指导老师姓名'}
+                , {field: 'studentOneName', title: '学生一'}
+                , {field: 'studentTwoName', title: '学生二'}
+                , {field: 'studentThreeName', title: '学生三'}
+                , {field: 'education', title: '队伍类型'}
+                , {
+                    field: 'teamState', title: '队伍状态', templet: function (res) {
+                        if (res.teamState == '0') {
+                            return '<em>' + "已创建" + '</em>'
+                        }
+                        if (res.teamState == '1') {
+                            return '<em>' + "待报名" + '</em>'
+                        }
+                        if (res.teamState == '2') {
+                            return '<em>' + "报名成功" + '</em>'
+                        }
+                        if (res.teamState == '3') {
+                            return '<em>' + "报名失败" + '</em>'
+                        }
+                    }
+                }
+                , {
+                    field: 'vacancy', title: '是否满员', templet: function (res) {
+                        if (res.vacancy == '0') {
+                            return '<em>' + "未满员" + '</em>'
+                        } else {
+                            return '<em>' + "已满员" + '</em>'
+                        }
+                    }
+                }
+            ]]
+            , parseData: function (res) { //res 即为原始返回的数据
+                return {
+                    "code": 0, //解析接口状态
+                    "msg": "", //解析提示文本
+                    "count": res.totalElements, //解析数据长度
+                    "data": res.content //解析数据列表
+                };
+            }
+            , page: true
+        });
+    });
+</script>
+</body>
+</html>
