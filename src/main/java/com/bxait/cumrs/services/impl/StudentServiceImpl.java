@@ -46,6 +46,7 @@ public class StudentServiceImpl implements StudentService {
         String email = (String) param.get("email");
         String speciality = (String) param.get("speciality");
         String departments = (String) param.get("departments");
+        String special = (String) param.get("special");
         String education = (String) param.get("education");
         String remarks = (String) param.get("remarks");
         Student stu = studentRepo.findStuByStuId(stuid);
@@ -58,6 +59,7 @@ public class StudentServiceImpl implements StudentService {
             student.setEmail(email);
             student.setPhone(phone);
             student.setSpeciality(speciality);
+            departments = departments.split("_")[0]+"-"+special;
             student.setDepartments(departments);
             student.setRemarks(remarks);
             student.setEducation(education);

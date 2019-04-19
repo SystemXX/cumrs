@@ -34,13 +34,14 @@ public class TeacherServiceImpl implements TeacherService {
         String phone = (String) param.get("phone");
         String email = (String) param.get("email");
         String departments = (String) param.get("departments");
+        String speciality = (String) param.get("speciality");
         String title = (String) param.get("title");
-        String teaType = "";
-        if(param.get("teaType") == null){
-            teaType = "A";
-        }else{
-            teaType = teaType;
-        }
+//        String teaType = "";
+//        if(param.get("teaType") == null){
+//            teaType = "A";
+//        }else{
+//            teaType = teaType;
+//        }
         Teacher tea = teacherRepo.findTeaByTeaId(teaid);
         if(tea == null){
             User user = new User();
@@ -49,10 +50,11 @@ public class TeacherServiceImpl implements TeacherService {
             teacher.setSex(sex);
             teacher.setEmail(email);
             teacher.setPhone(phone);
+            departments = departments.split("_")[0]+"-"+speciality;
             teacher.setDepartments(departments);
             teacher.setTitle(title);
             teacher.setTeaId(teaid);
-            teacher.setType(teaType);
+            teacher.setType(Const.TEA_TYPE_B);
             teacher.setOccupy(Const.NOT_IN_THE_TEAM);
             //默认可以修改自身信息，如果报名成功则无法修改
             teacher.setLocked(Const.NOT_LOCKED);

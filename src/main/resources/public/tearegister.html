@@ -12,77 +12,72 @@
 <body class="layui-bg-gray">
 <div class="layui-main" style="width: 500px;height: 100%;margin:100px auto auto auto;">
     <h1 align="center">注册</h1><br>
-    <form class="layui-form" action="">
-        <div class="layui-form-item">
-            <label class="layui-form-label">工号</label>
-            <div class="layui-input-block" style="width: 300px">
-                <input type="text" name="teaid" required lay-verify="required|teaid" placeholder="请输入工号"
-                       autocomplete="off" class="layui-input">
-            </div>
+    <form class="layui-form" action="" >
+    <div class="layui-form-item">
+        <label class="layui-form-label">工号</label>
+        <div class="layui-input-block" style="width: 300px">
+            <input type="text" name="teaid" required  lay-verify="required|teaid" placeholder="请输入工号" autocomplete="off" class="layui-input" >
         </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">密码</label>
-            <div class="layui-input-inline" style="width: 300px">
-                <input type="password" name="password" required lay-verify="required|pass" placeholder="请输入密码"
-                       autocomplete="off" class="layui-input">
-            </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">密码</label>
+        <div class="layui-input-inline" style="width: 300px">
+            <input type="password" name="password" required lay-verify="required|pass" placeholder="请输入密码" autocomplete="off" class="layui-input">
         </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">姓名</label>
-            <div class="layui-input-block" style="width: 300px">
-                <input type="text" name="name" required lay-verify="required" placeholder="请输入姓名" autocomplete="off"
-                       class="layui-input">
-            </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">姓名</label>
+        <div class="layui-input-block" style="width: 300px">
+            <input type="text" name="name" required  lay-verify="required" placeholder="请输入姓名" autocomplete="off" class="layui-input" >
         </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">电话</label>
-            <div class="layui-input-block" style="width: 300px">
-                <input type="text" name="phone" required lay-verify="required|phone" placeholder="请输入电话"
-                       autocomplete="off" class="layui-input">
-            </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">电话</label>
+        <div class="layui-input-block" style="width: 300px">
+            <input type="text" name="phone" required  lay-verify="required|phone" placeholder="请输入电话" autocomplete="off" class="layui-input" >
         </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">邮箱</label>
-            <div class="layui-input-block" style="width: 300px">
-                <input type="text" name="email" required lay-verify="required|email" placeholder="请输入邮箱"
-                       autocomplete="off" class="layui-input">
-            </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">邮箱</label>
+        <div class="layui-input-block" style="width: 300px">
+            <input type="text" name="email" required  lay-verify="required|email" placeholder="请输入邮箱" autocomplete="off" class="layui-input" >
         </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">职称</label>
-            <div class="layui-input-block" style="width: 300px">
-                <input type="text" name="title" required lay-verify="required" placeholder="请输入职称" autocomplete="off"
-                       class="layui-input">
-            </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">职称</label>
+        <div class="layui-input-block" style="width: 300px">
+            <input type="text" name="title" required  lay-verify="required" placeholder="请输入职称" autocomplete="off" class="layui-input" >
         </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">院系</label>
-            <div class="layui-input-block" style="width: 300px">
-                <select id="departments" name="departments" lay-filter="departments">
-                    <option value="">请选择院系</option>
-                </select>
-            </div>
-            <!--<div class="layui-input-block" style="width: 300px" style="display: none;">-->
-                <!--<select id="speciality" name="speciality" lay-filter="speciality">-->
-                    <!--<option value="">请选专业</option>-->
-                <!--</select>-->
-            <!--</div>-->
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">院系</label>
+        <div class="layui-input-block" style="width: 300px">
+            <select id="departments" name="departments" lay-filter="departments">
+                <option value="">请选择院系</option>
+            </select>
         </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">性别</label>
-            <div class="layui-input-block">
-                <input type="radio" name="sex" value="男" title="男">
-                <input type="radio" name="sex" value="女" title="女" checked>
-            </div>
+        <div class="layui-input-block" style="width: 300px" style="display: none;">
+            <select id="speciality" name="speciality" lay-filter="speciality">
+            <option value="">请选专业</option>
+        </select>
         </div>
-        <div class="layui-form-item">
-            <div class="layui-input-block">
-                <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
-                <button type="reset" class="layui-btn layui-btn-primary" onclick="$('#speciality').empty()">重置</button>
-            </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">性别</label>
+        <div class="layui-input-block">
+            <input type="radio" name="sex" value="男" title="男">
+            <input type="radio" name="sex" value="女" title="女" checked>
         </div>
-    </form>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </div>
+</form>
 </div>
+
 
 
 <script src="./layui/layui.all.js"></script>
@@ -90,59 +85,51 @@
 <script src="./js/cumrs.js"></script>
 
 <script>
-    // var areaData = Area;
-    // var $form;
-    // var form;
-    layui.use('form', function () {
-      var  form = layui.form;
-        // $form = $('form');
-        //监听提交
-        form.on('submit(formDemo)', function (data) {
-            var param = data.field;
-            param.departments = param.split('_')[0] + "|" + param.speciality;
+    var areaData = Area;
+    var $form;
+    var form;
+    layui.use('form', function(){
+        form = layui.form;
+        $form = $('form');
+        form.on('submit(formDemo)', function(data){
+            // data.field = data.field.departments.split('_')[0]+"|"+data.field.speciality;
             $.ajax({
                 type: "POST",
-                url: "/tea/register",
+                url: "tea/register",
                 dataType: "json",
                 data: JSON.stringify(data.field),
                 contentType: "application/json",
-                success: function (resp) {
-                    if (resp == "") {
-                        window.location.href = "login.html";
-                    } else {
+                success:function(resp){
+                    if(resp == ""){
+                        window.location.href="login.html";
+                    }else{
                         layer.msg('该用户已存在', {icon: 5});
                     }
                 },
-                error: function (error) {
+                error:function(error){
                     console.log(error)
                     layer.msg('注册失败', {icon: 5});
                 }
             });
-
-            // $.post("/tea/register",JSON.stringify(data.field),
-            //     function(data,status){
-            //         alert("数据: \n" + data + "\n状态: " + status);
-            //     });
             return false;
         });
 
 
         //自定义验证器
         form.verify({
-            teaid: function (value) {
-                if (value.length != 10) {
+            teaid: function(value){
+                if(value.length != 10){
                     return '工号长度为10个字符';
                 }
             }
-            , pass: [
+            ,pass: [
                 /^[\S]{6}$/
-                , '密码必须为6位'
+                ,'密码必须为6位'
             ]
         });
-        //加载联动
-        // loadDepartments()
-    });
 
+        loadDepartments();
+    });
 
     //加载院系
     function loadDepartments() {
@@ -166,7 +153,7 @@
         });
     }
 
-    //
+    //加载专业
     function loadSpeciality(Speciality) {
         var specialityHtml = '';
         for (var i = 0; i < Speciality.length; i++) {
@@ -175,6 +162,8 @@
         $form.find('select[name=speciality]').html(specialityHtml).parent().show();
         form.render();
     }
+</script>
+<script>
 
 </script>
 

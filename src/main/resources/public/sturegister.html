@@ -52,13 +52,13 @@
     <div class="layui-form-item">
         <label class="layui-form-label">院系</label>
         <div class="layui-input-block" style="width: 300px">
-            <select name="departments" lay-verify="required" style="width: 200px;">
-                <option value="">请选择</option>
-                <option value="0">软件工程</option>
-                <option value="1">电子商务</option>
-                <option value="2">土木工程</option>
-                <option value="3">会计</option>
-                <option value="4">航空航天</option>
+            <select id="departments" name="departments" lay-filter="departments">
+                <option value="">请选择院系</option>
+            </select>
+        </div>
+        <div class="layui-input-block" style="width: 300px" style="display: none;">
+            <select id="speciality" name="special" lay-filter="special">
+                <option value="">请选专业</option>
             </select>
         </div>
     </div>
@@ -101,17 +101,17 @@
 
 <script src="./layui/layui.all.js"></script>
 <script src="./jquery/jquery-3.2.1.js"></script>
-<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
+<script src="./js/cumrs.js"></script>
 
 <script>
-    //Demo
+    var form;
+    var $form;
+    var areaData = Area;
     layui.use('form', function(){
-        var form = layui.form;
-
+        form = layui.form;
+        $form = $('form');
         //监听提交
         form.on('submit(formDemo)', function(data){
-            // console.log(data)
-            // layer.msg(JSON.stringify(data.field));
             $.ajax({
                 type: "POST",
                 url: "/stu/register",
@@ -145,7 +145,40 @@
                 ,'密码必须为6位'
             ]
         });
+        loadDepartments();
     });
+
+    //加载院系
+    function loadDepartments() {
+        var proHtml = '';
+        for (var i = 0; i < areaData.length; i++) {
+            proHtml += '<option value="' + areaData[i].departmentName + '_' + areaData[i].specialities.length + '_' + i + '">' + areaData[i].departmentName + '</option>';
+        }
+        //初始化省数据
+        $form.find('select[name=departments]').append(proHtml);
+        form.render();
+        form.on('select(departments)', function (data) {
+            var value = data.value;
+            var d = value.split('_');
+            var count = d[1];
+            var index = d[2];
+            if (count > 0) {
+                loadSpeciality(areaData[index].specialities);
+            } else {
+                $form.find('select[name=speciality]').parent().hide();
+            }
+        });
+    }
+
+    //加载专业
+    function loadSpeciality(Speciality) {
+        var specialityHtml = '';
+        for (var i = 0; i < Speciality.length; i++) {
+            specialityHtml += '<option value="' + Speciality[i].speciality + '">' + Speciality[i].speciality + '</option>';
+        }
+        $form.find('select[name=special]').html(specialityHtml).parent().show();
+        form.render();
+    }
 </script>
 
 </body>
