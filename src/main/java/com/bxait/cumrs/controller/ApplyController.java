@@ -1,22 +1,13 @@
 package com.bxait.cumrs.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.bxait.cumrs.entity.Const;
 import com.bxait.cumrs.entity.model.Apply;
 import com.bxait.cumrs.entity.model.Student;
-import com.bxait.cumrs.entity.model.Teacher;
-import com.bxait.cumrs.entity.model.Team;
-import com.bxait.cumrs.entity.vo.ApplyVO;
 import com.bxait.cumrs.repo.ApplyRepo;
-import com.bxait.cumrs.repo.TeacherRepo;
 import com.bxait.cumrs.services.ApplyService;
-import com.bxait.cumrs.services.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.net.ssl.HttpsURLConnection;
-import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 

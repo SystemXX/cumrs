@@ -2,7 +2,6 @@ package com.bxait.cumrs.config;
 import com.bxait.cumrs.entity.Const;
 import com.bxait.cumrs.entity.model.User;
 import com.bxait.cumrs.repo.UserRepo;
-import netscape.security.UserTarget;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;

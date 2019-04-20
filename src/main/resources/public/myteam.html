@@ -42,18 +42,18 @@
 <script>
     var teamData ;
     var appType;
+    var tableIns;
     layui.use('table', function(){
         Cumrs.getUser();
         var user = Cumrs.user;
         var table = layui.table;
-        table.render({
+        tableIns = table.render({
             elem: '#myteam'
             ,url:'/team/getMyTeam?stuid='+user.userName
             ,toolbar: '#toolbarDemo'
             ,title: '用户数据表'
             ,cols: [[
-                {type: 'checkbox', fixed: 'left'}
-                ,{field:'teamName', title:'队伍名称', fixed: 'left'}
+                {field:'teamName', title:'队伍名称', fixed: 'left'}
                 ,{field:'teacherName', title:'指导老师姓名'}
                 ,{field:'studentOneName', title:'学生一'}
                 ,{field:'studentTwoName', title:'学生二'}
@@ -93,24 +93,6 @@
             ,page: false
         });
 
-      /*  //头工具栏事件
-        table.on('toolbar(test)', function(obj){
-            var checkStatus = table.checkStatus(obj.config.id);
-            switch(obj.event){
-                case 'getCheckData':
-                    var data = checkStatus.data;
-                    layer.alert(JSON.stringify(data));
-                    break;
-                case 'getCheckLength':
-                    var data = checkStatus.data;
-                    layer.msg('选中了：'+ data.length + ' 个');
-                    break;
-                case 'isAll':
-                    layer.msg(checkStatus.isAll ? '全选': '未全选');
-                    break;
-            };
-        });*/
-
         //监听行工具事件
         table.on('tool(test)', function(obj){
             teamData = obj.data;
@@ -121,12 +103,27 @@
                 appType = '1';
                 selectTea();
             }else if(obj.event === 'exit'){
-                layer.confirm('真的要退出队伍么么', function(index){
-
+                layer.confirm('真的要退出队伍吗', function(index){
+                    $.ajax({
+                        type: "POST",
+                        url: "team/quit",
+                        dataType: "json",
+                        data: JSON.stringify(teamData),
+                        contentType: "application/json",
+                        success:function(resp){
+                            layer.closeAll();
+                            layer.msg(resp, {icon: 6});
+                            tableIns.reload({page:{curr:1}});
+                        },
+                        error:function(error){
+                            console.log(error)
+                            layer.msg('操作失败', {icon: 5});
+                        }
+                    });
                     layer.close(index);
                 });
             }else if(obj.event === 'dissolution'){
-                layer.confirm('真的要解散队伍么么', function(index){
+                layer.confirm('真的要解散队伍吗?', function(index){
                     $.ajax({
                         type: "POST",
                         url: "team/dissolution",
@@ -136,6 +133,7 @@
                         success:function(resp){
                             layer.closeAll();
                             layer.msg(resp, {icon: 6});
+                            tableIns.reload({page:{curr:1}});
                         },
                         error:function(error){
                             console.log(error)
@@ -171,7 +169,7 @@
     function createTeam() {
         layer.open({
             type: 2,
-            area: ['700px', '450px'],
+            area: ['450px', '260px'],
             fixed: false, //不固定
             maxmin: true,
             content: 'createTeam.html'
@@ -193,6 +191,7 @@
             success:function(resp){
                 layer.closeAll();
                 layer.msg(resp, {icon: 6});
+                tableIns.reload({page:{curr:1}});
             },
             error:function(error){
                 console.log(error)

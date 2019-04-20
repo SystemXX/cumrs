@@ -2,7 +2,6 @@ package com.bxait.cumrs.services;
 
 
 import com.bxait.cumrs.entity.model.Apply;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.Map;
 
@@ -16,13 +15,6 @@ public interface ApplyService {
      */
     String invite(Map<String,Object> param)throws Exception;
 
-    /**
-     * 退出
-     * @param param
-     * @return
-     * @throws Exception
-     */
-    String quitTeam(Map<String,String> param)throws Exception;
 
     /**
      * 同意邀请

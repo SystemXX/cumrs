@@ -5,7 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-
 import javax.transaction.Transactional;
 import java.util.List;
 
@@ -29,4 +28,15 @@ public interface ApplyRepo extends JpaRepository<Apply,Long> {
     @Transactional(rollbackOn = Exception.class)
     @Query("delete Apply where inviter = ?1 or invited = ?1")
     void deleteApply(String inviter);
+
+    @Query("from Apply where invited = ?1")
+    List<Apply> findApplyByInvited(String invited);
+
+    /**
+     * 根据队伍名称查找相关邀请
+     * @param teamName
+     * @return
+     */
+    @Query("from Apply where teamName = ?1")
+    List<Apply> findApplyByTeamName(String teamName);
 }

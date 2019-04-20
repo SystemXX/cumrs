@@ -65,9 +65,6 @@ public class Const {
     public static final String TEAM_STATE_VERIFY = "1";
     //报名成功
     public static final String TEAM_STATE_VERIFY_SUCCESS = "2";
-    //报名失败
-    public static final String TEAM_STATE_VERIFY_FAIL = "3";
-
     /**
      * 团队是否满员
      */

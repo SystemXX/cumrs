@@ -5,7 +5,6 @@ import com.bxait.cumrs.entity.PageQuery;
 import com.bxait.cumrs.entity.model.Student;
 import com.bxait.cumrs.entity.model.User;
 import com.bxait.cumrs.repo.StudentRepo;
-import com.bxait.cumrs.repo.TeacherRepo;
 import com.bxait.cumrs.services.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
@@ -71,6 +70,18 @@ public class StudentController {
     public String getOne(@RequestParam("stuid") String stuid){
         Student student = studentRepo.findStuByStuId(stuid);
         return JSON.toJSONString(student) ;
+    }
+
+    /**
+     * 修改个人信息
+     * @param student
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    public String update(@RequestBody Student student)throws Exception{
+        String res = studentService.update(student);
+        return JSON.toJSONString(res) ;
     }
 
     /**

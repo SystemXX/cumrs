@@ -13,6 +13,14 @@ import javax.servlet.http.HttpSession;
 @Component
 public class LoginInterceptor implements HandlerInterceptor {
 
+    /**
+     * 拦截请求，无用户信息则重定向至登录页。
+     * @param request
+     * @param response
+     * @param handler
+     * @return
+     * @throws Exception
+     */
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         HttpSession session = request.getSession();

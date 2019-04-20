@@ -3,11 +3,9 @@ package com.bxait.cumrs.services.impl;
 
 import com.bxait.cumrs.entity.Const;
 import com.bxait.cumrs.entity.model.Student;
-import com.bxait.cumrs.entity.model.Teacher;
 import com.bxait.cumrs.entity.model.Team;
 import com.bxait.cumrs.entity.model.User;
 import com.bxait.cumrs.repo.StudentRepo;
-import com.bxait.cumrs.repo.TeacherRepo;
 import com.bxait.cumrs.repo.TeamRepo;
 import com.bxait.cumrs.repo.UserRepo;
 import com.bxait.cumrs.services.StudentService;
@@ -32,6 +30,7 @@ public class StudentServiceImpl implements StudentService {
 
     /**
      * 学生注册
+     *
      * @param param
      * @throws Exception
      */
@@ -50,7 +49,7 @@ public class StudentServiceImpl implements StudentService {
         String education = (String) param.get("education");
         String remarks = (String) param.get("remarks");
         Student stu = studentRepo.findStuByStuId(stuid);
-        if(stu == null){
+        if (stu == null) {
             User user = new User();
             Student student = new Student();
             student.setName(name);
@@ -59,7 +58,7 @@ public class StudentServiceImpl implements StudentService {
             student.setEmail(email);
             student.setPhone(phone);
             student.setSpeciality(speciality);
-            departments = departments.split("_")[0]+"-"+special;
+            departments = departments.split("_")[0] + "-" + special;
             student.setDepartments(departments);
             student.setRemarks(remarks);
             student.setEducation(education);
@@ -72,13 +71,14 @@ public class StudentServiceImpl implements StudentService {
             userRepo.save(user);
             studentRepo.save(student);
             return "";
-        }else{
+        } else {
             return "该用户已存在";
         }
     }
 
     /**
      * 获取团队成员信息
+     *
      * @param teaid
      * @return
      * @throws Exception
@@ -88,12 +88,23 @@ public class StudentServiceImpl implements StudentService {
         Team team = teamRepo.findTeamByTeaid(teaid);
         List<Student> students = new ArrayList<>();
         List<String> ids = new ArrayList<>();
-        if(team != null){
+        if (team != null) {
             ids.add(team.getStudentOne());
             ids.add(team.getStudentTwo());
             ids.add(team.getStudentThree());
             students = studentRepo.findStuByStuIds(ids);
         }
         return students;
+    }
+
+    @Override
+    public String update(Student student) throws Exception {
+        Student stu = studentRepo.findById(student.getId()).get();
+        stu.setSpeciality(student.getSpeciality());
+        stu.setRemarks(student.getRemarks());
+        stu.setEmail(student.getEmail());
+        stu.setPhone(student.getPhone());
+        studentRepo.save(stu);
+        return "操作成功";
     }
 }

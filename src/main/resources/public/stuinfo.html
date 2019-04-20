@@ -12,85 +12,89 @@
 <body class="layui-bg-gray">
 <div class="layui-main" style="width: 500px;height: 100%;margin:100px auto auto auto;">
     <h1 align="center">个人信息</h1><br>
-    <form class="layui-form" action="" >
-    <div class="layui-form-item">
-        <label class="layui-form-label">学号</label>
-        <div class="layui-input-block" style="width: 300px">
-            <input type="text" name="stuid" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input layui-disabled" >
+    <form class="layui-form" action="">
+        <div class="layui-form-item">
+            <div class="layui-input-block" style="width: 300px">
+                <input type="hidden" name="id" required lay-verify="required" placeholder="请输入标题" autocomplete="off"
+                       class="layui-input layui-disabled">
+            </div>
         </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">姓名</label>
-        <div class="layui-input-block" style="width: 300px">
-            <input type="text" name="name" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input layui-disabled" >
+        <div class="layui-form-item">
+            <label class="layui-form-label">学号</label>
+            <div class="layui-input-block" style="width: 300px">
+                <input type="text" name="stuid" required lay-verify="required" placeholder="请输入标题" autocomplete="off"
+                       class="layui-input layui-disabled">
+            </div>
         </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">年龄</label>
-        <div class="layui-input-block" style="width: 300px">
-            <input type="text" name="age" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input layui-disabled" >
+        <div class="layui-form-item">
+            <label class="layui-form-label">姓名</label>
+            <div class="layui-input-block" style="width: 300px">
+                <input type="text" name="name" required lay-verify="required" placeholder="请输入标题" autocomplete="off"
+                       class="layui-input layui-disabled">
+            </div>
         </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">电话</label>
-        <div class="layui-input-block" style="width: 300px">
-            <input type="text" name="phone" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input" >
+        <div class="layui-form-item">
+            <label class="layui-form-label">年龄</label>
+            <div class="layui-input-block" style="width: 300px">
+                <input type="text" name="age" required lay-verify="required" placeholder="请输入标题" autocomplete="off"
+                       class="layui-input layui-disabled">
+            </div>
         </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">邮箱</label>
-        <div class="layui-input-block" style="width: 300px">
-            <input type="text" name="email" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input" >
+        <div class="layui-form-item">
+            <label class="layui-form-label">电话</label>
+            <div class="layui-input-block" style="width: 300px">
+                <input type="text" name="phone" required lay-verify="required" placeholder="请输入标题" autocomplete="off"
+                       class="layui-input">
+            </div>
         </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">院系</label>
-        <div class="layui-input-block" style="width: 300px">
-            <select id="departments" class="layui-disabled" name="departments" lay-verify="required" style="width: 200px;">
-                <option value="">请选择</option>
-                <option value="0">软件工程</option>
-                <option value="1">电子商务</option>
-                <option value="2">土木工程</option>
-                <option value="3">会计</option>
-                <option value="4">航空航天</option>
-            </select>
+        <div class="layui-form-item">
+            <label class="layui-form-label">邮箱</label>
+            <div class="layui-input-block" style="width: 300px">
+                <input type="text" name="email" required lay-verify="required" placeholder="请输入标题" autocomplete="off"
+                       class="layui-input">
+            </div>
         </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">性别</label>
-        <div class="layui-input-block">
-            <input type="radio" class="layui-disabled" name="sex" value="男" title="男">
-            <input type="radio" class="layui-disabled" name="sex" value="女" title="女">
+        <div class="layui-form-item">
+            <label class="layui-form-label">院系</label>
+            <div class="layui-input-block" style="width: 300px">
+                <input type="text" name="departments" required lay-verify="required" placeholder="请输入标题"
+                       autocomplete="off" class="layui-input layui-disabled">
+            </div>
         </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">学历</label>
-        <div class="layui-input-block">
-            <input type="radio" class="layui-disabled" name="education" value="专科" title="专科">
-            <input type="radio" class="layui-disabled" name="education" value="本科" title="本科">
+        <div class="layui-form-item">
+            <label class="layui-form-label">性别</label>
+            <div class="layui-input-block" style="width: 300px">
+                <input type="text" name="sex" required lay-verify="required" placeholder="请输入标题" autocomplete="off"
+                       class="layui-input layui-disabled">
+            </div>
         </div>
-    </div>
-    <div class="layui-form-item layui-form-text">
-        <label class="layui-form-label">特长</label>
-        <div class="layui-input-block" style="width: 300px">
-            <textarea name="speciality" placeholder="非必填" class="layui-textarea"></textarea>
+        <div class="layui-form-item">
+            <label class="layui-form-label">学历</label>
+            <div class="layui-input-block" style="width: 300px">
+                <input type="text" name="education" required lay-verify="required" placeholder="请输入标题"
+                       autocomplete="off" class="layui-input layui-disabled">
+            </div>
         </div>
-    </div>
-    <div class="layui-form-item layui-form-text">
-        <label class="layui-form-label">备注</label>
-        <div class="layui-input-block" style="width: 300px">
-            <textarea name="remarks" placeholder="非必填" class="layui-textarea"></textarea>
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">特长</label>
+            <div class="layui-input-block" style="width: 300px">
+                <textarea name="speciality" placeholder="非必填" class="layui-textarea"></textarea>
+            </div>
         </div>
-    </div>
-    <div class="layui-form-item">
-        <div class="layui-input-block">
-            <button id="submit" class="layui-btn" lay-submit lay-filter="formDemo">立即修改</button>
-            <button id="reset" type="reset" class="layui-btn layui-btn-primary">重置</button>
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">备注</label>
+            <div class="layui-input-block" style="width: 300px">
+                <textarea name="remarks" placeholder="非必填" class="layui-textarea"></textarea>
+            </div>
         </div>
-    </div>
-</form>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button id="submit" class="layui-btn" lay-submit lay-filter="formDemo">立即修改</button>
+                <button id="reset" type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </form>
 </div>
-
 
 
 <script src="./layui/layui.all.js"></script>
@@ -106,66 +110,57 @@
         url: "stu/getOne",
         dataType: "json",
         data: {
-            "stuid":user.userName
+            "stuid": user.userName
         },
         contentType: "application/json",
-        success:function(resp){
+        success: function (resp) {
+            $("input[name='id']").val(resp.id);
             $("input[name='stuid']").val(resp.stuid);
             $("input[name='name']").val(resp.name);
             $("input[name='education']").val(resp.education);
             $("input[name='age']").val(resp.age);
             $("input[name='phone']").val(resp.phone);
             $("input[name='email']").val(resp.email);
-            $("select[name='departments']").val(resp.departments);
-            if(resp.sex == '男'){
-                $("input[name='sex'][value='男']").attr("checked","true")
-            }
-            if(resp.sex == '女'){
-                $("input[name='sex'][value='女']").attr("checked","true")
-            }
-            if(resp.education == '专科'){
-                $("input[name='education'][value='专科']").attr("checked","true")
-            }
-            if(resp.education == '本科'){
-                $("input[name='education'][value='本科']").attr("checked","true")
-            }
+            $("input[name='departments']").val(resp.departments);
+            $("input[name='sex']").val(resp.sex);
+            $("input[name='education']").val(resp.education);
             $("textarea[name='speciality']").val(resp.speciality);
             $("textarea[name='remarks']").val(resp.remarks);
-            if(resp.locked == '1'){
+            if (resp.locked == '1') {
                 $("#submit").hide();
                 $("#reset").hide();
             }
             form.render();
         },
-        error:function(error){
+        error: function (error) {
             console.log(error)
             layer.msg('信息获取失败', {icon: 5});
         }
     });
-    layui.use('form', function(){
+    layui.use('form', function () {
         //监听提交
-        form.on('submit(formDemo)', function(data){
-            // console.log(data)
-            // layer.msg(JSON.stringify(data.field));
+        form.on('submit(formDemo)', function (data) {
+            var stu = {};
+            stu.id = data.field.id;
+            stu.phone = data.field.phone;
+            stu.email = data.field.email;
+            stu.speciality = data.field.speciality;
+            stu.remarks = data.field.remarks;
             $.ajax({
                 type: "POST",
-                url: "stu/register",
+                url: "stu/update",
                 dataType: "json",
-                data: JSON.stringify(data.field),
+                data: JSON.stringify(stu),
                 contentType: "application/json",
-                success:function(resp){
-                    if(resp == ""){
-                        window.location.href="login.html";
-                    }else{
-                        layer.msg('该用户已存在', {icon: 5});
-                    }
+                success: function (resp) {
+                    layer.msg(resp, {icon: 6});
                 },
-                error:function(error){
+                error: function (error) {
                     console.log(error)
                     layer.msg('注册失败', {icon: 5});
                 }
-             });
-           return false;
+            });
+            return false;
         });
     });
 </script>

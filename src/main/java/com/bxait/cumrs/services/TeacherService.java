@@ -1,5 +1,7 @@
 package com.bxait.cumrs.services;
 
+import com.bxait.cumrs.entity.model.Teacher;
+
 import java.util.Map;
 
 public interface TeacherService {
@@ -27,4 +29,12 @@ public interface TeacherService {
      * @throws Exception
      */
     String revoke(Long id)throws Exception;
+
+    /**
+     * 修改个人信息
+     * @param teacher
+     * @return
+     * @throws Exception
+     */
+    String update(Teacher teacher)throws Exception;
 }

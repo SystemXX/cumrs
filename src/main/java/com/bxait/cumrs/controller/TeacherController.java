@@ -8,8 +8,12 @@ import com.bxait.cumrs.entity.model.User;
 import com.bxait.cumrs.repo.TeacherRepo;
 import com.bxait.cumrs.services.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.*;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
+
 import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Map;
@@ -60,6 +64,18 @@ public class TeacherController {
     public String getOne(@RequestParam("teaid") String teaid){
         Teacher teacher = teacherRepo.findTeaByTeaId(teaid);
         return JSON.toJSONString(teacher) ;
+    }
+
+    /**
+     * 修改个人信息
+     * @param teacher
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    public String update(@RequestBody Teacher teacher)throws Exception{
+        String res = teacherService.update(teacher);
+        return JSON.toJSONString(res) ;
     }
 
     /**

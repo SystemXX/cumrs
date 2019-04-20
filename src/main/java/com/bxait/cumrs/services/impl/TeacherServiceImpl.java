@@ -1,14 +1,17 @@
 package com.bxait.cumrs.services.impl;
 
 import com.bxait.cumrs.entity.Const;
+import com.bxait.cumrs.entity.model.Apply;
 import com.bxait.cumrs.entity.model.Teacher;
 import com.bxait.cumrs.entity.model.User;
+import com.bxait.cumrs.repo.ApplyRepo;
 import com.bxait.cumrs.repo.TeacherRepo;
 import com.bxait.cumrs.repo.UserRepo;
 import com.bxait.cumrs.services.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Map;
 
 @Service("teacherService")
@@ -19,6 +22,9 @@ public class TeacherServiceImpl implements TeacherService {
 
     @Autowired
     UserRepo userRepo;
+
+    @Autowired
+    ApplyRepo applyRepo;
 
     /**
      * 老师注册
@@ -36,12 +42,6 @@ public class TeacherServiceImpl implements TeacherService {
         String departments = (String) param.get("departments");
         String speciality = (String) param.get("speciality");
         String title = (String) param.get("title");
-//        String teaType = "";
-//        if(param.get("teaType") == null){
-//            teaType = "A";
-//        }else{
-//            teaType = teaType;
-//        }
         Teacher tea = teacherRepo.findTeaByTeaId(teaid);
         if(tea == null){
             User user = new User();
@@ -71,7 +71,10 @@ public class TeacherServiceImpl implements TeacherService {
 
     @Override
     public String empower(Long id) throws Exception {
+        Teacher teacher = teacherRepo.findById(id).get();
         teacherRepo.empower(id);
+        List<Apply> applies = applyRepo.findApplyByInvited(teacher.getTeaId());
+        applyRepo.deleteAll(applies);
         return Const.SUCCESS;
     }
 
@@ -79,5 +82,15 @@ public class TeacherServiceImpl implements TeacherService {
     public String revoke(Long id) throws Exception {
         teacherRepo.revoke(id);
         return Const.SUCCESS;
+    }
+
+    @Override
+    public String update(Teacher teacher) throws Exception {
+        Teacher tea = teacherRepo.findById(teacher.getId()).get();
+        tea.setPhone(teacher.getPhone());
+        tea.setEmail(teacher.getEmail());
+        tea.setTitle(teacher.getTitle());
+        teacherRepo.save(tea);
+        return "操作成功";
     }
 }
