@@ -73,13 +73,22 @@ public class TeacherServiceImpl implements TeacherService {
     public String empower(Long id) throws Exception {
         Teacher teacher = teacherRepo.findById(id).get();
         teacherRepo.empower(id);
+        userRepo.empower(teacher.getTeaId());
         List<Apply> applies = applyRepo.findApplyByInvited(teacher.getTeaId());
         applyRepo.deleteAll(applies);
         return Const.SUCCESS;
     }
 
+    /**
+     * 取消授权
+     * @param id
+     * @return
+     * @throws Exception
+     */
     @Override
     public String revoke(Long id) throws Exception {
+        Teacher teacher = teacherRepo.findById(id).get();
+        userRepo.revoke(teacher.getTeaId());
         teacherRepo.revoke(id);
         return Const.SUCCESS;
     }
