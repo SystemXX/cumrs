@@ -21,11 +21,11 @@
     </div>
     <button class="layui-btn layui-btn-sm" onclick="search()">搜索</button>
 </script>
-
+<!--管理老师不用授权，无法加入队伍。所以普通老师在加入队伍之后无法授权-->
 <script type="text/html" id="barDemo">
-    {{# if(d.type == 'B'&&d.occupy == ‘0’){ }}
+    {{# if(d.type == 'B'&&d.occupy == '0'){ }}
         <a class="layui-btn layui-btn-xs" lay-event="empower">授权</a>
-    {{# }else{ }}
+    {{# }else if(d.type == 'C'){ }}
         <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="revoke">取消授权</a>
     {{# } }}
 </script>
@@ -56,9 +56,9 @@
                 ,{field:'email', title:'邮箱'}
                 ,{field:'occupy', title:'是否在队伍中', templet: function(res){
                         if(res.occupy == "0"){
-                            return '<em>'+ "是" +'</em>';
-                        }else{
                             return '<em>'+ "否" +'</em>';
+                        }else{
+                            return '<em>'+ "是" +'</em>';
                         }
                     }}
                 ,{field:'type', title:'类型', templet: function(res){
